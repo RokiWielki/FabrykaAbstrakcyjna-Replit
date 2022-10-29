@@ -9,6 +9,10 @@ namespace FabrykaAbstrakcyjna
     {
         public string ShowAlfa();
     }
+    interface INums
+    {
+        public int ShowNum();
+    }
 
     //
     //
@@ -38,7 +42,7 @@ namespace FabrykaAbstrakcyjna
 
     abstract class SystemFactory
     {
-        //
+        public abstract ILetters CreateAlfa();
         public abstract INums CreateNum();
     }
 
@@ -61,11 +65,103 @@ namespace FabrykaAbstrakcyjna
         }
     }
 
+    class LacinkaFactory : SystemFactory
+    {
+        public override ILetters CreateAlfa()
+        {
+            return new LacinkaLetters();
+        }
+
+        public override INums CreateNum()
+        {
+            return new LacinkaNumbers();
+        }
+    }
+
+    class GrekaFactory : SystemFactory
+    {
+        public override ILetters CreateAlfa()
+        {
+            return new GrekaLetters();
+        }
+
+        public override INums CreateNum()
+        {
+            return new GrekaNumbers();
+        }
+    }
+
+    class CyrylicaLetters : ILetters
+    {
+        string letters;
+
+        public CyrylicaLetters()
+        {
+            letters = "cyrylica";
+        }
+
+        //
+        //
+        //
+    }
+    class LacinkaLetters : ILetters
+    {
+        string letters;
+
+        public LacinkaLetters()
+        {
+            letters = "abcde";
+        }
+
+        //
+        //
+        //
+    }
+    class GrekaLetters : ILetters
+    {
+        string letters;
+
+        public GrekaLetters()
+        {
+            letters = "alfa,beta";
+        }
+
+        //
+        //
+        //
+    }
+
 
     //
     // ...
     //
 
+    class CyrylicaNumbers : INums
+    {
+        string numbers;
+
+        //
+        //
+        //  
+
+        public string ShowNum()
+        {
+            return numbers;
+        }
+    }
+    class LacinkaNumbers : INums
+    {
+        string numbers;
+
+        //
+        //
+        //  
+
+        public string ShowNum()
+        {
+            return numbers;
+        }
+    }
 
     class GrekaNumbers : INums
     {
@@ -82,19 +178,7 @@ namespace FabrykaAbstrakcyjna
     }
 
 
-    class LacinkaLetters : ILetters
-    {
-        string letters;
-
-        public LacinkaLetters()
-        {
-            letters = "abcde";
-        }
-
-        //
-        //
-        //
-    }
+    
 
 
     //
