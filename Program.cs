@@ -11,30 +11,29 @@ namespace FabrykaAbstrakcyjna
     }
     interface INums
     {
-        public int ShowNum();
+        public string ShowNum();
     }
 
-    //
-    //
-    //
 
     class AlphabetFactory
     {
 
         private SystemFactory systemFactory;
 
-        //
-        //
+            //
+            //
+        
 
         public AlphabetFactory(SystemFactory systemFactory)
         {
-            //
+            Generate();
         }
 
         public void Generate()
         {
             numbers = systemFactory.CreateNum();
-            //
+            letters = systemFactory.CreateAlfa();
+            
         }
 
     }
@@ -45,11 +44,6 @@ namespace FabrykaAbstrakcyjna
         public abstract ILetters CreateAlfa();
         public abstract INums CreateNum();
     }
-
-
-    //
-    // ...
-    //
 
 
     class CyrylicaFactory : SystemFactory
@@ -97,12 +91,14 @@ namespace FabrykaAbstrakcyjna
 
         public CyrylicaLetters()
         {
-            letters = "cyrylica";
+            letters = "абвгд";
+        }
+        public string ShowAlfa()
+        {
+            return letters;
         }
 
-        //
-        //
-        //
+        
     }
     class LacinkaLetters : ILetters
     {
@@ -113,9 +109,11 @@ namespace FabrykaAbstrakcyjna
             letters = "abcde";
         }
 
-        //
-        //
-        //
+        public string ShowAlfa()
+        {
+            return letters;
+        }
+        
     }
     class GrekaLetters : ILetters
     {
@@ -123,26 +121,29 @@ namespace FabrykaAbstrakcyjna
 
         public GrekaLetters()
         {
-            letters = "alfa,beta";
+            letters = "αβγδε";
         }
 
-        //
-        //
-        //
+        public string ShowAlfa()
+        {
+            return letters;
+        }
+        
     }
 
 
-    //
-    // ...
-    //
+   
 
     class CyrylicaNumbers : INums
     {
         string numbers;
 
-        //
-        //
-        //  
+        public CyrylicaNumbers()
+        {
+            numbers= "1 2 3";
+        }
+
+         
 
         public string ShowNum()
         {
@@ -153,9 +154,11 @@ namespace FabrykaAbstrakcyjna
     {
         string numbers;
 
-        //
-        //
-        //  
+        public LacinkaNumbers()
+        {
+            numbers = "I II III";
+        }
+       
 
         public string ShowNum()
         {
@@ -167,25 +170,17 @@ namespace FabrykaAbstrakcyjna
     {
         string numbers;
 
-        //
-        //
-        //  
+        public GrekaNumbers()
+        {
+            numbers = "αʹ βʹ γʹ";
+        }
+    
 
         public string ShowNum()
         {
             return numbers;
         }
     }
-
-
-    
-
-
-    //
-    // ...
-    //
-
-
     public class Application
     {
         public static void Main(String[] args)
@@ -193,16 +188,16 @@ namespace FabrykaAbstrakcyjna
             Console.OutputEncoding = Encoding.UTF8;
 
             AlphabetFactory alphabet_lacinka = new AlphabetFactory(new LacinkaFactory());
-            //
-            //
+            AlphabetFactory alphabet_cyrylica = new AlphabetFactory(new CyrylicaFactory());
+            AlphabetFactory alphabet_greka = new AlphabetFactory(new GrekaFactory());
 
-            //
+            alphabet_lacinka.Generate();
             alphabet_cyrylica.Generate();
-            //
+            alphabet_greka.Generate();
 
-            //
-            //
-            Console.WriteLine(alfabet_greka.letters.ShowAlfa() + " " + alfabet_greka.numbers.ShowNum());
+            Console.WriteLine(alphabet_lacinka.letters.ShowAlfa() + " " + alphabet_greka.numbers.ShowNum());
+            Console.WriteLine(alphabet_cyrylica.letters.ShowAlfa() + " " + alphabet_greka.numbers.ShowNum());
+            Console.WriteLine(alphabet_greka.letters.ShowAlfa() + " " + alphabet_greka.numbers.ShowNum());
         }
     }
 
